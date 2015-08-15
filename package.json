@@ -1,0 +1,29 @@
+{
+  "name": "chipjs",
+  "version": "0.0.1",
+  "description": "Chip-8 Emulator in Javascript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha 'src/modules/**/*.test.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/concreted/chipjs.git"
+  },
+  "keywords": [
+    "emulator",
+    "chip-8"
+  ],
+  "author": "concreted",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/concreted/chipjs/issues"
+  },
+  "homepage": "https://github.com/concreted/chipjs",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
+  }
+}
