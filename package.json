@@ -4,7 +4,7 @@
   "description": "Chip-8 Emulator in Javascript.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'src/modules/**/*.test.js'"
+    "test": "mocha 'src/modules/**/*.{test,unit}.js'"
   },
   "repository": {
     "type": "git",
