@@ -85,4 +85,3 @@ describe('bit module', function() {
     })
   });
 });
-
