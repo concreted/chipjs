@@ -60,15 +60,9 @@ describe('Chip8Timers module', function() {
   });
 
   describe('setDelayTimer', function() {
-    before(function() {
-      sinon.stub(Chip8Timers.prototype, '_setTimer');
-    });
-    it('should call _setTimer with "delay" and the time', function() {
+    it('should set delay timer', function() {
       timers.setDelayTimer(255);
-      expect(timers._setTimer).to.have.been.calledWith('delay', 255);
-    });
-    after(function() {
-      Chip8Timers.prototype._setTimer.restore();
+      expect(timers._timers.delay).to.equal(255);
     });
   });
 
@@ -80,15 +74,25 @@ describe('Chip8Timers module', function() {
   });
 
   describe('setSoundTimer', function() {
-    before(function() {
-      sinon.stub(Chip8Timers.prototype, '_setTimer');
-    });
-    it('should call _setTimer with "sound" and the time', function() {
+    it('should set sound timer', function() {
       timers.setSoundTimer(255);
-      expect(timers._setTimer).to.have.been.calledWith('sound', 255);
+      expect(timers._timers.sound).to.equal(255);
     });
-    after(function() {
-      Chip8Timers.prototype._setTimer.restore();
+  });
+
+  describe('setSoundAction', function() {
+    it('should set the sound action', function() {
+      var action = sinon.stub();
+      timers.setSoundAction(action);
+      expect(timers._actions.sound).to.equal(action);
+    });
+  });
+
+  describe('executeSoundAction', function() {
+    it('should call the set sound action', function() {
+      var action = sinon.stub();
+      timers.executeSoundAction(action);
+      expect(timers._actions.sound).to.have.been.called;
     });
   });
 
@@ -100,7 +104,7 @@ describe('Chip8Timers module', function() {
     });
     it('should call setInterval to decrement timers with refresh rate', function() {
       expect(global.setInterval).to.have.been.calledWith(
-        timers._decrementAllTimers,
+        timers._step,
         constants.REFRESH_MS
       )
     });
@@ -112,17 +116,24 @@ describe('Chip8Timers module', function() {
     })
   });
 
-  describe('_decrementAllTimers', function() {
+  describe('_step', function() {
     before(function() {
       sinon.stub(Chip8Timers.prototype, '_decrementTimer');
-      timers._decrementAllTimers();
+      sinon.stub(Chip8Timers.prototype, 'executeSoundAction');
+      timers._timers.delay = 100;
+      timers._timers.sound = 100;
+      timers._step();
     });
     it('should decrement the timer for both timers', function() {
       expect(timers._decrementTimer).to.have.been.calledWith('delay');
       expect(timers._decrementTimer).to.have.been.calledWith('sound');
     });
+    it('should call sound action if sound timer > 1', function() {
+      expect(Chip8Timers.prototype.executeSoundAction).to.have.been.called;
+    });
     after(function() {
       Chip8Timers.prototype._decrementTimer.restore();
+      Chip8Timers.prototype.executeSoundAction.restore();
     });
   });
 
@@ -136,13 +147,6 @@ describe('Chip8Timers module', function() {
       timers._timers.delay = 0
       timers._decrementTimer('delay');
       expect(timers._timers.delay).to.equal(0);
-    });
-  });
-
-  describe('_setTimer', function() {
-    it('should set the timer based on name and t value', function() {
-      timers._setTimer('delay', 100);
-      expect(timers._timers.delay).to.equal(100);
     });
   });
 });
