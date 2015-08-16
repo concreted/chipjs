@@ -1,6 +1,6 @@
 var constants = require('../chip8-constants');
 
-function Chip8Timer() {
+function Chip8Timers() {
   this._timers = {
     delay: 0,
     sound: 0
@@ -9,7 +9,7 @@ function Chip8Timer() {
   this._intervalId = null;
 }
 
-Chip8Timer.prototype = {
+Chip8Timers.prototype = {
   start: function() {
     this._intervalId = this._startTimerCountdown();
   },
@@ -53,4 +53,4 @@ Chip8Timer.prototype = {
   }
 }
 
-module.exports = Chip8Timer;
+module.exports = Chip8Timers;

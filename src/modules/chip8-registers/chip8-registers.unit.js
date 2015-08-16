@@ -6,10 +6,10 @@ var expect = chai.expect;
 var assert = chai.assert;
 chai.use(sinonChai);
 
-var Chip8Register = require('./chip8-register');
+var Chip8Registers = require('./chip8-registers');
 
-describe('Chip8Register Module', function() {
-  var register = new Chip8Register();
+describe('Chip8Registers Module', function() {
+  var register = new Chip8Registers();
 
   describe('attributes', function() {
     it('should have an I register', function() {
