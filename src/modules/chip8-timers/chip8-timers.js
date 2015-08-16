@@ -35,7 +35,7 @@ Chip8Timers.prototype = {
   },
 
   _startTimerCountdown: function() {
-    return setInterval(this._decrementAllTimers, constants._REFRESH_MS);
+    return setInterval(this._decrementAllTimers, constants.REFRESH_MS);
   },
 
   _decrementAllTimers: function() {
