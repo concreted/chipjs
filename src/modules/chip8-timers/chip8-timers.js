@@ -15,11 +15,16 @@ function Chip8Timers(beep) {
 
 Chip8Timers.prototype = {
   start: function() {
-    this._intervalId = this._startTimerCountdown();
+    if (this._intervalId === null) {
+      this._intervalId = this._startTimerCountdown();
+    }
   },
 
   stop: function() {
-    clearInterval(this._intervalId);
+    if (this._intervalId !== null) {
+      clearInterval(this._intervalId);
+      this._intervalId = null;
+    }
   },
 
   getDelayTimer: function() {
@@ -47,11 +52,11 @@ Chip8Timers.prototype = {
   },
 
   _startTimerCountdown: function() {
-    return setInterval(this._step, constants.REFRESH_MS);
+    return setInterval(this._step.bind(this), constants.REFRESH_MS);
   },
 
   _step: function() {
-    Object.keys(this._timers).forEach(this._decrementTimer);
+    Object.keys(this._timers).forEach(this._decrementTimer.bind(this));
     if (this.getSoundTimer() > 1) {
       this.executeSoundAction();
     }
