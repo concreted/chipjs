@@ -6,9 +6,9 @@ var expect = chai.expect;
 var assert = chai.assert;
 chai.use(sinonChai);
 
-var timing = require('./chip8-timer');
+var timing = require('./chip8-timers');
 
-describe('Chip8Timer module', function() {
+describe('Chip8Timers module', function() {
   xdescribe('attributes', function() {
     it('should have a delay and sound timer', function() {
 

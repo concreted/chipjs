@@ -1,4 +1,6 @@
 module.exports = {
   _REFRESH_HZ: 60,
-  _REFRESH_MS: (1/this._REFRESH_HZ) * 1000
+  _REFRESH_MS: (1/this._REFRESH_HZ) * 1000,
+  _MEMORY_SIZE_BYTES: 4096,
+  _STACK_SIZE_BYTES: 64,
 }

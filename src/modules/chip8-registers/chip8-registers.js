@@ -1,4 +1,4 @@
-function Chip8Register() {
+function Chip8Registers() {
   this.I = 0;
   this.V0 = 0;
   this.V1 = 0;
@@ -18,8 +18,8 @@ function Chip8Register() {
   this.VF = 0;
 }
 
-Chip8Register.prototype = {
+Chip8Registers.prototype = {
 
 }
 
-module.exports = Chip8Register;
+module.exports = Chip8Registers;
