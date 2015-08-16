@@ -1,13 +1,13 @@
 var constants = require('../chip8-constants');
 
-function Chip8Timers() {
+function Chip8Timers(beep) {
   this._timers = {
     delay: 0,
     sound: 0
   };
 
   this._actions = {
-    sound: function() {}
+    sound: beep ? beep : function() {}
   };
 
   this._intervalId = null;
