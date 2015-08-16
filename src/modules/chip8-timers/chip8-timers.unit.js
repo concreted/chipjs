@@ -101,7 +101,7 @@ describe('Chip8Timers module', function() {
     it('should call setInterval to decrement timers with refresh rate', function() {
       expect(global.setInterval).to.have.been.calledWith(
         timers._decrementAllTimers,
-        constants._REFRESH_MS
+        constants.REFRESH_MS
       )
     });
     it('should return the interval ID', function() {
