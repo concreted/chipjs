@@ -1,4 +1,4 @@
-var constants = require('./chip8-constants');
+var constants = require('../chip8-constants');
 
 function Chip8Timer() {
   this._timers = {
