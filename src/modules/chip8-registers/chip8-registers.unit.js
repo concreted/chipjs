@@ -9,29 +9,32 @@ chai.use(sinonChai);
 var Chip8Registers = require('./chip8-registers');
 
 describe('Chip8Registers Module', function() {
-  var register = new Chip8Registers();
+  var registers = new Chip8Registers();
 
   describe('attributes', function() {
     it('should have an I register', function() {
-      expect(register.I).to.equal(0);
+      expect(registers.I).to.equal(0);
+    });
+    it('should have a program counter PC register', function() {
+      expect(registers.PC).to.equal(0);
     });
     it('should have registers V0-VF', function() {
-      expect(register.V0).to.equal(0);
-      expect(register.V1).to.equal(0);
-      expect(register.V2).to.equal(0);
-      expect(register.V3).to.equal(0);
-      expect(register.V4).to.equal(0);
-      expect(register.V5).to.equal(0);
-      expect(register.V6).to.equal(0);
-      expect(register.V7).to.equal(0);
-      expect(register.V8).to.equal(0);
-      expect(register.V9).to.equal(0);
-      expect(register.VA).to.equal(0);
-      expect(register.VB).to.equal(0);
-      expect(register.VC).to.equal(0);
-      expect(register.VD).to.equal(0);
-      expect(register.VE).to.equal(0);
-      expect(register.VF).to.equal(0);
+      expect(registers.V0).to.equal(0);
+      expect(registers.V1).to.equal(0);
+      expect(registers.V2).to.equal(0);
+      expect(registers.V3).to.equal(0);
+      expect(registers.V4).to.equal(0);
+      expect(registers.V5).to.equal(0);
+      expect(registers.V6).to.equal(0);
+      expect(registers.V7).to.equal(0);
+      expect(registers.V8).to.equal(0);
+      expect(registers.V9).to.equal(0);
+      expect(registers.VA).to.equal(0);
+      expect(registers.VB).to.equal(0);
+      expect(registers.VC).to.equal(0);
+      expect(registers.VD).to.equal(0);
+      expect(registers.VE).to.equal(0);
+      expect(registers.VF).to.equal(0);
     });
   });
 });

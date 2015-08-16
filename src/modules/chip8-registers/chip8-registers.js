@@ -1,5 +1,6 @@
 function Chip8Registers() {
   this.I = 0;
+  this.PC = 0;
   this.V0 = 0;
   this.V1 = 0;
   this.V2 = 0;
