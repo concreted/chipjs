@@ -11,16 +11,15 @@ var constants = require('./chip8-constants');
 
 var stubs = {
   memory: {
-    create8Bit: sinon.stub().returnsArg(0)
+    create8Bit: sinon.stub().returnsArg(0),
+    create8Bit2D: sinon.stub().returns('grid2d')
   },
-  Video: sinon.stub().returns('video'),
   Chip8Registers: sinon.stub(),
   Chip8Timers: sinon.stub()
 }
 
 var Chip8 = proxyquire('./chip8', {
   './memory': stubs.memory,
-  './video': stubs.Video,
   './chip8-registers': stubs.Chip8Registers,
   './chip8-timers': stubs.Chip8Timers
 });
@@ -33,7 +32,6 @@ describe('Chip8', function() {
       chip8 = new Chip8();
     });
     it('should set ram to 4096-byte array', function() {
-      expect(stubs.memory.create8Bit).to.have.been.called;
       expect(stubs.memory.create8Bit).to.have.been.calledWith(constants.MEMORY_SIZE_BYTES);
       expect(chip8.ram).to.equal(4096);
     });
@@ -50,8 +48,8 @@ describe('Chip8', function() {
       expect(chip8.timers).to.not.equal(undefined);
     });
     it('should create video', function() {
-      expect(stubs.Video).to.have.been.calledWithNew;
-      expect(chip8.video).to.not.equal(undefined);
+      expect(stubs.memory.create8Bit2D).to.have.been.calledWith(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT);
+      expect(chip8.video).to.equal('grid2d');
     });
   });
 });

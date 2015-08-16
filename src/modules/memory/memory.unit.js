@@ -17,4 +17,12 @@ describe('Memory', function() {
       expect(chip8Memory[4095]).to.equal(0);
     });
   });
+
+  describe('create8Bit2D', function() {
+    it('should return a 2D array with height/width set to arguments', function() {
+      var grid = memory.create8Bit2D(64, 32);
+      expect(grid[0].length).to.equal(64);
+      expect(grid.length).to.equal(32);
+    });
+  });
 });

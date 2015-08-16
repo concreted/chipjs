@@ -1,10 +1,14 @@
 var constants = require('../chip8-constants');
 
-function Chip8Timers() {
+function Chip8Timers(beep) {
   this._timers = {
     delay: 0,
     sound: 0
-  }
+  };
+
+  this._actions = {
+    sound: beep ? beep : function() {}
+  };
 
   this._intervalId = null;
 }
@@ -23,7 +27,7 @@ Chip8Timers.prototype = {
   },
 
   setDelayTimer: function(t) {
-    this._setTimer('delay', t);
+    this._timers.delay = t;
   },
 
   getSoundTimer: function() {
@@ -31,25 +35,32 @@ Chip8Timers.prototype = {
   },
 
   setSoundTimer: function(t) {
-    this._setTimer('sound', t);
+    this._timers.sound = t;
+  },
+
+  setSoundAction: function(cb) {
+    this._actions.sound = cb;
+  },
+
+  executeSoundAction: function() {
+    this._actions.sound();
   },
 
   _startTimerCountdown: function() {
-    return setInterval(this._decrementAllTimers, constants.REFRESH_MS);
+    return setInterval(this._step, constants.REFRESH_MS);
   },
 
-  _decrementAllTimers: function() {
+  _step: function() {
     Object.keys(this._timers).forEach(this._decrementTimer);
+    if (this.getSoundTimer() > 1) {
+      this.executeSoundAction();
+    }
   },
 
   _decrementTimer: function(timer) {
     if (this._timers[timer] > 0) {
       this._timers[timer]--;
     }
-  },
-
-  _setTimer: function(name, t) {
-    this._timers[name] = t;
   }
 }
 
