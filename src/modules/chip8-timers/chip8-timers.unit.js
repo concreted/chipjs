@@ -100,11 +100,12 @@ describe('Chip8Timers module', function() {
     var intervalId = null;
     before(function() {
       sinon.stub(global, 'setInterval').returns(19);
+      sinon.stub(timers._step, 'bind').returns('this._step.bind(this)');
       intervalId = timers._startTimerCountdown();
     });
     it('should call setInterval to decrement timers with refresh rate', function() {
       expect(global.setInterval).to.have.been.calledWith(
-        timers._step,
+        'this._step.bind(this)',
         constants.REFRESH_MS
       )
     });
