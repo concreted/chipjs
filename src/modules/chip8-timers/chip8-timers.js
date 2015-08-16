@@ -39,12 +39,12 @@ Chip8Timers.prototype = {
   },
 
   _decrementAllTimers: function() {
-    Object.keys(this._timers).forEach(_decrementTimer);
+    Object.keys(this._timers).forEach(this._decrementTimer);
   },
 
   _decrementTimer: function(timer) {
-    if (this._timer[timer] > 0) {
-      this._timer[timer]--;
+    if (this._timers[timer] > 0) {
+      this._timers[timer]--;
     }
   },
 

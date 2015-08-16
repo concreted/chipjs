@@ -8,7 +8,6 @@ function Chip8() {
   this.stack = memory.create8Bit(constants._STACK_SIZE_BYTES);
   this.registers = new Chip8Registers();
   this.timers = new Chip8Timers();
-  console.log(this);
 }
 
 Chip8.prototype = {
