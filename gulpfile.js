@@ -30,6 +30,6 @@ gulp.task('js', function () {
     .pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('develop', function() {
+gulp.task('develop', ['js'], function() {
   gulp.watch(config.js, ['js']);
 });
