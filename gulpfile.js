@@ -8,6 +8,10 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 
+var config = {
+  js: ['src/**/*.js']
+};
+
 gulp.task('js', function () {
   // set up the browserify instance on a task basis
   var b = browserify({
@@ -24,4 +28,8 @@ gulp.task('js', function () {
         .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./public/js/'));
+});
+
+gulp.task('develop', function() {
+  gulp.watch(config.js, ['js']);
 });
