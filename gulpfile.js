@@ -9,7 +9,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var gutil = require('gulp-util');
 
 var config = {
-  js: ['src/**/*.js']
+  js: ['src/**/*.js', 'public/js/app.js']
 };
 
 gulp.task('js', function () {
