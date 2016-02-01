@@ -14,6 +14,10 @@ function Chip8Timers(beep) {
 }
 
 Chip8Timers.prototype = {
+  update: function() {
+    this._step();
+  },
+
   start: function() {
     if (this._intervalId === null) {
       this._intervalId = this._startTimerCountdown();
