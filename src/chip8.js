@@ -7,16 +7,19 @@ var Chip8Opcodes = require('./modules/chip8-opcodes');
 
 function Chip8(beep) {
   this.ram = memory.create8Bit(constants.MEMORY_SIZE_BYTES);
-  this.stack = memory.create8Bit(constants.STACK_SIZE_BYTES);
+  // this.stack = memory.create8Bit(constants.STACK_SIZE_BYTES);
+  this.stack = new Uint16Array(16);
   this.timers = new Chip8Timers(beep);
   this.registers = new Chip8Registers();
   this.sp = 0;
   this.drawFlag = 0;
 
-  this.videoBuffer = memory.create8Bit2D(
-    constants.SCREEN_WIDTH,
-    constants.SCREEN_HEIGHT
-  );
+  // this.videoBuffer = memory.create8Bit2D(
+  //   constants.SCREEN_WIDTH,
+  //   constants.SCREEN_HEIGHT
+  // );
+
+  this.videoBuffer = new Uint8Array(256);
 
   this.video = new VideoCanvas(
     document.getElementById('chip8'),
@@ -25,6 +28,8 @@ function Chip8(beep) {
     5,
     5
   );
+
+  this.opcodes = new Chip8Opcodes;
 }
 
 Chip8.prototype = {
@@ -52,14 +57,15 @@ Chip8.prototype = {
   _executeOpcode: function() {
     // fetch opcode
     var opcode = this._decodeOpcodeAtLocation(this.registers.PC);
+    console.log(opcode);
 
     // decode opcode
     // get first four bits of opcode for lookup, right 12 bits for variables
     var rightBits = opcode & 0x0FFF;
-    var instruction = Chip8Opcodes.lookup(opcode);
-
+    var instruction = this.opcodes.lookup(opcode);
+    console.log(instruction);
     // execute opcode with this context
-    instruction.bind(this)(rightBits);
+    instruction.bind(this)(opcode);
   },
 
   _decodeOpcodeAtLocation: function(pc) {
@@ -78,6 +84,7 @@ Chip8.prototype = {
     this.cycle();
     if (this.drawFlag) {
       this.draw();
+      this.drawFlag = 0;
     }
   }
 }

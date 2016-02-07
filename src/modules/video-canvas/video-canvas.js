@@ -22,12 +22,28 @@ VideoCanvas.prototype = {
   },
 
   drawBuffer: function(buffer) {
-    for(var i = 0; i < buffer.length; i++) {
-      var rowLocation = {
-        x: 0,
-        y: i * this.pixelHeight
+    for(var i = 0; i < 32; i++) {
+      for(var j = 0; j < 8; j++) {
+        var byte = buffer[(i*8) + j];
+        var byteLocation = {
+          x: (j * this.pixelHeight) *8,
+          y: i * this.pixelHeight
+        }
+        this._drawByte(byte, byteLocation);
+      }
+    }
+  },
+
+  _drawByte: function(byte, location) {
+    var mask = 0x1;
+    for (var i = 0; i < 8; i++) {
+      var value = byte & mask;
+      var pixelLocation = {
+        x: location.x + (i * this.pixelWidth),
+        y: location.y
       };
-      this._drawRow(buffer[i], rowLocation);
+      this._drawPixel(value, pixelLocation);
+      mask = mask << 1;
     }
   },
 
