@@ -22,40 +22,11 @@ VideoCanvas.prototype = {
   },
 
   drawBuffer: function(buffer) {
-    for(var i = 0; i < 32; i++) {
-      for(var j = 0; j < 8; j++) {
-        var byte = buffer[(i*8) + j];
-        var byteLocation = {
-          x: (j * this.pixelHeight) *8,
-          y: i * this.pixelHeight
-        }
-        this._drawByte(byte, byteLocation);
+    for(var y = 0; y < 32; y++) {
+      for(var x = 0; x < 64; x++) {
+        this._drawPixel(buffer[(y * 64) + x], {x: x, y: y});
       }
     }
-  },
-
-  _drawByte: function(byte, location) {
-    var mask = 0x1;
-    for (var i = 0; i < 8; i++) {
-      var value = byte & mask;
-      var pixelLocation = {
-        x: location.x + (i * this.pixelWidth),
-        y: location.y
-      };
-      this._drawPixel(value, pixelLocation);
-      mask = mask << 1;
-    }
-  },
-
-  _drawRow: function(row, location) {
-    var that = this;
-    row.forEach(function(value, i) {
-      var pixelLocation = {
-        x: location.x + (i * that.pixelWidth),
-        y: location.y
-      };
-      that._drawPixel(value, pixelLocation);
-    });
   },
 
   _drawPixel: function(value, location) {
@@ -64,7 +35,12 @@ VideoCanvas.prototype = {
     } else {
       this.context.fillStyle=BLACK;
     }
-    this.context.fillRect(location.x, location.y, this.pixelWidth, this.pixelHeight);
+    this.context.fillRect(
+      location.x * this.pixelWidth,
+      location.y * this.pixelHeight,
+      this.pixelWidth,
+      this.pixelHeight
+    );
   },
 }
 

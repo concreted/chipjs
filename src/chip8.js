@@ -14,12 +14,7 @@ function Chip8(beep) {
   this.sp = 0;
   this.drawFlag = 0;
 
-  // this.videoBuffer = memory.create8Bit2D(
-  //   constants.SCREEN_WIDTH,
-  //   constants.SCREEN_HEIGHT
-  // );
-
-  this.videoBuffer = new Uint8Array(256);
+  this.videoBuffer = new Uint8Array(4096);
 
   this.video = new VideoCanvas(
     document.getElementById('chip8'),
@@ -30,6 +25,11 @@ function Chip8(beep) {
   );
 
   this.opcodes = new Chip8Opcodes;
+
+  // initialize fonts
+  this.fontModule = require('./modules/chip8-fonts');
+  this.load(0, this.fontModule.fontData);
+
 }
 
 Chip8.prototype = {
@@ -78,6 +78,12 @@ Chip8.prototype = {
 
   loadROM: function(rom) {
 
+  },
+
+  load: function(location, data) {
+    for (var i = 0; i < data.length; i++) {
+      this.ram[location + i] = data[i];
+    }
   },
 
   mainLoop: function() {
