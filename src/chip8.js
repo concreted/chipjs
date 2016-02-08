@@ -55,13 +55,12 @@ Chip8.prototype = {
   _executeOpcode: function() {
     // fetch opcode
     var opcode = this._decodeOpcodeAtLocation(this.registers.PC);
-    console.log(opcode);
 
     // decode opcode
     // get first four bits of opcode for lookup, right 12 bits for variables
     var rightBits = opcode & 0x0FFF;
     var instruction = this.opcodes.lookup(opcode);
-    console.log(instruction);
+
     // execute opcode with this context
     instruction.bind(this)(opcode);
   },
