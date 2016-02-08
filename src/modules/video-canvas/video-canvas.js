@@ -1,5 +1,4 @@
 var constants = require('../chip8-constants');
-var memory = require('../memory');
 
 var WHITE = '#FFFFFF';
 var BLACK = '#000000';

@@ -1,4 +1,3 @@
-var memory = require('./modules/memory');
 var constants = require('./modules/chip8-constants');
 var Chip8Registers = require('./modules/chip8-registers');
 var Chip8Timers = require('./modules/chip8-timers');
@@ -6,8 +5,7 @@ var VideoCanvas = require('./modules/video-canvas');
 var Chip8Opcodes = require('./modules/chip8-opcodes');
 
 function Chip8(beep) {
-  this.ram = memory.create8Bit(constants.MEMORY_SIZE_BYTES);
-  // this.stack = memory.create8Bit(constants.STACK_SIZE_BYTES);
+  this.ram = new Uint8Array(constants.MEMORY_SIZE_BYTES);
   this.stack = new Uint16Array(16);
   this.timers = new Chip8Timers(beep);
   this.registers = new Chip8Registers();
